@@ -110,9 +110,14 @@ class syntax_plugin_yearbox extends SyntaxPlugin
                     }
                     break;
                 default:
-                    Logger::getInstance(Logger::LOG_DEBUG)->log(
-                        "Unknown key: '$key' in '$match'"
-                    );
+                    if ( class_exists(Logger::class)) {
+                        Logger::getInstance(Logger::LOG_DEBUG)->log(
+                            "Unknown key: '$key' in '$match'"
+                        );
+                    } else {
+                        // TODO: remove after the next DokuWiki release
+                        dbglog("Yearbox Plugin: Unknown key '$key' in '$match'");
+                    }
             }
         }
         return $opt;
