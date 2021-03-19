@@ -68,7 +68,7 @@ class syntax_plugin_yearbox extends SyntaxPlugin
         $opt = [];
 
         // default options
-        $opt['ns'] = $INFO['namespace'];   // this namespace
+        $opt['ns'] = $INFO['namespace'] ?? '';   // this namespace
         $opt['size'] = 12;                 // 12px font size
         $opt['name'] = 'day';              // a boring default page name
         $opt['year'] = date('Y');          // this year
@@ -96,7 +96,7 @@ class syntax_plugin_yearbox extends SyntaxPlugin
                     $opt['ns'] = (strpos($value, ':') === false) ? ':' . $value : $value;
                     break;
                 case 'recent':
-                    $opt['recent'] = ($value > 0) ? abs($value) : 0;
+                    $opt['recent'] = ((int)$value > 0) ? (int)$value : 0;
                     break;
                 case 'months':
                     $opt['months'] = explode(',', $value);
