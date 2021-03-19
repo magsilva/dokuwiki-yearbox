@@ -1,7 +1,14 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [1.0.1](https://github.com/micgro42/yearbox/compare/v1.0.0...v1.0.1) (2021-03-19)
+
+
+### Bug Fixes
+
+* resolve PHP 8 errors ([bfa3776](https://github.com/micgro42/yearbox/commit/bfa377637c567179d2593bf6cea66296e84cf9a3))
+* restore compatibility with DokuWiki stable ([7062e57](https://github.com/micgro42/yearbox/commit/7062e57e6d6b860c1def639566856339b796b2bf))
 
 ## 1.0.0 (2021-03-14)
 
