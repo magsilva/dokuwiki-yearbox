@@ -179,7 +179,7 @@ class syntax_plugin_yearbox extends SyntaxPlugin
             for ($col = 0; $col < $table_cols; $col++) {
                 $weekday_num = ($col + $first_weekday) % 7;       // current day of week as a number
                 if ($col == 0) {
-                    $cal .= '<th class="plain">' . $year_num . '</th>';
+                    $cal .= '<th class="plain">' . $this->getYearHTML($year, $year_num, $opt, $today) . '</th>';
                 }
                 $h = $day_names[$weekday_num];
                 $cal .= '<th>' . $h . '</th>';
@@ -208,6 +208,27 @@ class syntax_plugin_yearbox extends SyntaxPlugin
     }
 
     /**
+     * Get the HTML for one year
+     *
+     * @param $year_num
+     *
+     * @return string
+     */
+    protected function getYearHTML(
+        $year,
+        $year_num,
+        $opt,
+        $today
+    ) {
+        global $conf;
+        $pagenameService = PageNameStrategy::getPagenameStategy($this->getConf('namestructure'));
+	$id = $pagenameService->getYearId($opt['ns'], $year_num, $opt['name']);
+        $link = $this->getYearLinkHTML($id, "$year_num", $conf[ 'userewrite' ]);
+        return $link;
+    }
+
+
+    /**
      * Get the HTML for one table-row, representing one month
      *
      * @param $month
@@ -231,7 +252,7 @@ class syntax_plugin_yearbox extends SyntaxPlugin
     ) {
         $cal = '<tr>';
         // insert month name into first column of row
-        $cal .= $this->getMonthNameHTML($mth_num);
+        $cal .= $this->getMonthNameHTML($mth_num, $year_num, $opt);
         $cur_day = 0;
         for ($col = 0; $col < $table_cols; $col++) {
             $weekday_num = ($col + $first_weekday) % 7;       // current day of week as a number
@@ -305,7 +326,7 @@ class syntax_plugin_yearbox extends SyntaxPlugin
      *
      * @return string
      */
-    protected function getMonthNameHTML($mth_num)
+    protected function getMonthNameHTML($month_num, $year_num, $opt)
     {
         $month_names = [
             $this->getLang('yearbox_months_jan'),
@@ -320,9 +341,20 @@ class syntax_plugin_yearbox extends SyntaxPlugin
             $this->getLang('yearbox_months_oct'),
             $this->getLang('yearbox_months_nov'),
             $this->getLang('yearbox_months_dec'),
-        ];
-        $alt_css = ($mth_num % 2 == 0) ? ' class="alt"' : '';
-        return '<th' . $alt_css . '>' . $month_names[$mth_num - 1] . '</th>';
+	];
+	$month_name = $month_names[$month_num - 1];
+
+        global $conf;
+        $pagenameService = PageNameStrategy::getPagenameStategy($this->getConf('namestructure'));
+	$id = $pagenameService->getMonthId($opt['ns'], $year_num, $month_num, $opt['name']);
+	if (date("Y") == $year_num && date('m') == $month_num) {
+            $month_css = ' class="today"';
+	} else {
+            $month_css = ($month_num % 2 == 0) ? ' class="alt"' : '';
+	}
+
+        $link = $this->getMonthLinkHTML($id, $month_name, $conf[ 'userewrite' ]);
+        return '<th' . $month_css . '>' . $link . '</th>';
     }
 
     /**
@@ -430,4 +462,43 @@ class syntax_plugin_yearbox extends SyntaxPlugin
         $sym = ($userewrite) ? '?' : '&amp;';
         return preg_replace('/\" class/', $sym . 'do=edit" class', $link, 1);
     }
+
+    /**
+     * @param string $id
+     * @param string $day_fmt
+     * @param        $userewrite
+     *
+     * @return string|string[]|null
+     */
+    private function getMonthLinkHTML(string $id, string $month_fmt, $userewrite)
+    {
+        if (page_exists($id)) {
+            return $this->wikilinkPreviewPopup($id, $month_fmt);
+        }
+
+        $link = html_wikilink($id, $month_fmt);
+        // skip the "do you want to create this page" bit
+        $sym = ($userewrite) ? '?' : '&amp;';
+        return preg_replace('/\" class/', $sym . 'do=edit" class', $link, 1);
+    }
+
+    /**
+     * @param string $id
+     * @param string $day_fmt
+     * @param        $userewrite
+     *
+     * @return string|string[]|null
+     */
+    private function getYearLinkHTML(string $id, string $year_fmt, $userewrite)
+    {
+        if (page_exists($id)) {
+            return $this->wikilinkPreviewPopup($id, $year_fmt);
+        }
+
+        $link = html_wikilink($id, $year_fmt);
+        // skip the "do you want to create this page" bit
+        $sym = ($userewrite) ? '?' : '&amp;';
+        return preg_replace('/\" class/', $sym . 'do=edit" class', $link, 1);
+    }
+
 }
