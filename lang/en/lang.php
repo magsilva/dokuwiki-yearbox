@@ -8,18 +8,18 @@
 
 // custom language strings for the plugin
 
-$lang['yearbox_months_jan'] = 'Jan';
-$lang['yearbox_months_feb'] = 'Feb';
-$lang['yearbox_months_mar'] = 'Mar';
-$lang['yearbox_months_apr'] = 'Apr';
+$lang['yearbox_months_jan'] = 'January';
+$lang['yearbox_months_feb'] = 'February';
+$lang['yearbox_months_mar'] = 'March';
+$lang['yearbox_months_apr'] = 'April';
 $lang['yearbox_months_may'] = 'May';
-$lang['yearbox_months_jun'] = 'Jun';
-$lang['yearbox_months_jul'] = 'Jul';
-$lang['yearbox_months_aug'] = 'Aug';
-$lang['yearbox_months_sep'] = 'Sep';
-$lang['yearbox_months_oct'] = 'Oct';
-$lang['yearbox_months_nov'] = 'Nov';
-$lang['yearbox_months_dec'] = 'Dec';
+$lang['yearbox_months_jun'] = 'June';
+$lang['yearbox_months_jul'] = 'July';
+$lang['yearbox_months_aug'] = 'August';
+$lang['yearbox_months_sep'] = 'September';
+$lang['yearbox_months_oct'] = 'October';
+$lang['yearbox_months_nov'] = 'November';
+$lang['yearbox_months_dec'] = 'December';
 
 // week begins on Sunday in PHP...
 $lang['yearbox_days'] = "SMTWTFS";
