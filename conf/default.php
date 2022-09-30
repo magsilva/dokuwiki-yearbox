@@ -1,3 +1,3 @@
 <?php
 
-$conf['namestructure']    = 'default';
+$conf['namestructure']    = 'NoneNS';

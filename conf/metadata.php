@@ -4,7 +4,8 @@ $meta['namestructure'] = [
     'multichoice',
     '_choices' => [
         'default',
-        'separatedCompletely',
+	'separatedCompletely',
+	'NoneNS',
         'YearMonthSeperatedNS',
         'YearNS',
     ],

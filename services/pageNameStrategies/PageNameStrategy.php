@@ -16,10 +16,16 @@ abstract class PageNameStrategy
                 return new YearMonthSeperatedNS();
             case 'YearNS':
                 return new YearNS();
-            default:
+            case 'NoneNS':
+		return new NoneNS();
+	    default:
                 return new YearMonthCombinedNS();
         }
     }
 
     abstract public function getPageId($baseNS, $year, $month, $day, $name);
+
+    abstract public function getMonthId($baseNS, $year, $month, $name);
+
+    abstract public function getYearId($baseNS, $year, $name);
 }
